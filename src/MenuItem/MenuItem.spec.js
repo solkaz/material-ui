@@ -26,6 +26,19 @@ describe('<MenuItem />', () => {
     assert.strictEqual(wrapper.find(ListItem).prop('hoverColor'), testColor);
   });
 
+  it('contains a Popover if menuItems are passed', () => {
+    const menuItems = [<MenuItem />, <MenuItem />];
+    const wrapper = shallowWithContext(<MenuItem menuItems={menuItems} />);
+    const popoverWrapper = wrapper.find(ListItem).find(Popover);
+    assert.strictEqual(popoverWrapper.length, 1, 'should contain a Popover');
+  });
+
+  it('does not contain a Popover if no menuItems are passed', () => {
+    const wrapper = shallowWithContext(<MenuItem />);
+    const popoverWrapper = wrapper.find(ListItem).find(Popover);
+    assert.strictEqual(popoverWrapper.length, 0, 'should not contain a Popover');
+  });
+
   it('should pass anchorOrigin to the <Popover />', () => {
     const menuItems = [<MenuItem />, <MenuItem />];
     const anchorOrigin = {horizontal: 'middle', vertical: 'bottom'};
